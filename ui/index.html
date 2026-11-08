@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>عِمران</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <div id="home" class="page">
+    <header class="top">
+      <button id="place" class="pill-button" type="button">
+        <svg class="icon"><use href="#i-pin"/></svg><span id="place-name"></span>
+      </button>
+      <div class="dates">
+        <div id="hijri"></div>
+        <div id="gregorian" class="soft"></div>
+      </div>
+      <div class="top-actions">
+        <button id="language" class="pill-button" type="button"></button>
+        <button id="open-settings" class="round-button" type="button"><svg class="icon"><use href="#i-gear"/></svg></button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-label">
+        <span id="count-label"></span>
+        <button id="bell" class="round-button small" type="button" role="switch"><svg class="icon"><use id="bell-glyph" href="#i-bell"/></svg></button>
+      </div>
+      <div id="countdown" class="countdown" dir="ltr">00:00:00</div>
+      <div class="next-pill"><b id="next-name"></b><span id="next-time" dir="ltr"></span></div>
+      <button id="stop-home" class="stop-button" type="button" hidden></button>
+    </section>
+
+    <section class="glass day">
+      <div class="day-head">
+        <button id="prev-day" class="round-button small" type="button"><svg class="icon arrow-start"><use href="#i-back"/></svg></button>
+        <button id="day-title" class="day-title" type="button"></button>
+        <button id="next-day" class="round-button small" type="button"><svg class="icon arrow-end"><use href="#i-back"/></svg></button>
+      </div>
+      <div id="times" class="times"></div>
+    </section>
+  </div>
+
+  <div id="settings" class="page" hidden>
+    <header class="settings-head">
+      <button id="back" class="round-button" type="button"><svg class="icon back-arrow"><use href="#i-back"/></svg></button>
+      <h1 id="settings-title"></h1>
+    </header>
+    <div class="settings-grid">
+      <section><h2 id="group-times"></h2><div id="rows-times" class="glass rows"></div></section>
+      <section><h2 id="group-adhan"></h2><div id="rows-adhan" class="glass rows"></div></section>
+      <section class="wide"><h2 id="group-general"></h2><div id="rows-general" class="glass rows columns"></div></section>
+    </div>
+  </div>
+
+  <div id="overlay" class="overlay" hidden>
+    <div id="dialog" class="dialog" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7.5 7.5 0 0 0-7.5 7.5C4.5 15 12 22 12 22s7.5-7 7.5-12.5A7.5 7.5 0 0 0 12 2Zm0 10.2a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Z"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><path fill="currentColor" d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.6a.5.5 0 0 0 .1-.6l-1.9-3.3a.5.5 0 0 0-.6-.2l-2.4 1a7.3 7.3 0 0 0-1.7-1l-.4-2.5a.5.5 0 0 0-.5-.4h-3.8a.5.5 0 0 0-.5.4l-.4 2.5a7.3 7.3 0 0 0-1.7 1l-2.4-1a.5.5 0 0 0-.6.2L2.7 8.8a.5.5 0 0 0 .1.6L4.8 11a7.6 7.6 0 0 0 0 2l-2 1.6a.5.5 0 0 0-.1.6l1.9 3.3c.1.2.4.3.6.2l2.4-1c.5.4 1.1.7 1.7 1l.4 2.5c0 .2.2.4.5.4h3.8c.3 0 .5-.2.5-.4l.4-2.5c.6-.3 1.2-.6 1.7-1l2.4 1c.2.1.5 0 .6-.2l1.9-3.3a.5.5 0 0 0-.1-.6l-2-1.6ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22a2.3 2.3 0 0 0 2.3-2.3H9.7A2.3 2.3 0 0 0 12 22Zm7-5.6-1.7-1.7V10c0-3-1.6-5.5-4.4-6.2v-.6a1.4 1.4 0 0 0-2.8 0v.6C7.3 4.5 5.7 7 5.7 10v4.7L4 16.4v1.1h16v-1.1Z"/></symbol>
+    <symbol id="i-bell-off" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22a2.3 2.3 0 0 0 2.3-2.3H9.7A2.3 2.3 0 0 0 12 22Zm5.3-11.8c0-3-1.6-5.7-4.4-6.4v-.6a1.4 1.4 0 0 0-2.8 0v.6c-.6.1-1.1.4-1.6.7l8.8 8.8v-3.1ZM3.3 2.6 2 3.9l4 4c-.2.7-.3 1.4-.3 2.3v4.5L4 16.4v1.1h13.6l2.5 2.5 1.3-1.3L3.3 2.6Z"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  </svg>
+
+  <script src="sky.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

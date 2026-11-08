@@ -1,0 +1,9 @@
+[package]
+name = "emran-core"
+version = "1.0.0"
+edition = "2021"
+license = "GPL-3.0-only"
+description = "Offline prayer times and Hijri dates, ported from the Emran Android app"
+
+[dependencies]
+jiff = { version = "0.2", default-features = false, features = ["std", "tz-system", "tzdb-bundle-always"] }
